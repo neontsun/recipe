@@ -1,0 +1,154 @@
+@media screen and (max-width: 499px) {
+
+	.wrapper {
+		width: 95%;
+	}
+
+	.search {
+		justify-content: center;
+
+		&__form {
+			width: 100%;
+			margin: 10px;
+		}
+
+		&__recipe-count {
+			display: flex;
+			justify-content: center;
+			width: 100%;
+		}
+
+		&__filter {
+			display: flex;
+			justify-content: center;
+			width: 100%;
+		}
+	}
+
+	.filters {
+
+		&__item {
+			width: 100%;
+		}
+
+	}
+
+}
+
+@media screen and (min-width: 500px) and (max-width: 767px) {
+
+	.wrapper {
+		width: 95%;
+	}
+
+	.search {
+		justify-content: center;
+
+		&__form {
+			width: 100%;
+			margin: 10px;
+		}
+
+		&__recipe-count {
+			display: flex;
+			justify-content: center;
+			width: 100%;
+		}
+
+		&__filter {
+			display: flex;
+			justify-content: center;
+			width: 100%;
+		}
+	}
+
+	.filters {
+
+		&__item {
+			width: 100%;
+		}
+
+	}
+
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+
+	.wrapper {
+		width: 90%;
+	}
+
+	.search {
+		justify-content: center;
+
+		&__form {
+			width: 70%;
+			margin: 10px;
+		}
+
+		&__recipe-count {
+			display: flex;
+			justify-content: center;
+			width: 100%;
+		}
+
+		&__filter {
+			display: flex;
+			justify-content: center;
+			width: 100%;
+		}
+	}
+
+	.filters {
+		display: flex;
+		justify-content: center;
+
+		&__item {
+			width: 50%;
+		}
+
+	}
+
+}
+
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+
+	.wrapper {
+		width: 90%;
+	}
+
+	.search {
+		justify-content: space-between;
+
+		&__form {
+			width: 400px;
+		}
+	}
+
+	.filters {
+		display: flex;
+		justify-content: space-around;
+	}
+
+}
+
+@media screen and (min-width: 1200px) {
+
+	.wrapper {
+		width: 75%;
+	}
+
+	.search {
+		justify-content: space-between;
+
+		&__form {
+			width: 450px;
+		}
+	}
+
+	.filters {
+		display: flex;
+		justify-content: space-around;
+	}
+
+}

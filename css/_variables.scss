@@ -1,0 +1,14 @@
+/* Colors */
+$body-color: #846EC2;
+$main-color: #EF8284;
+$text-color-dark: #000;
+$text-color-light: #fff;
+$text-color-gray: lighten($text-color-dark, 10%);
+$border-color: lighten($text-color-dark, 30%);
+$link-color: $body-color;
+
+/* Fonts */
+$os-regular: 'OpenSans-Regular';
+$os-bold: 'OpenSans-Bold';
+$os-light: 'OpenSans-Light';
+$os-italic: 'OpenSans-Italic';
