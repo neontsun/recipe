@@ -393,3 +393,31 @@ body {
     font-size: 20px;
   }
 }
+
+.error {
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: $text-color-gray;
+  font-family: $os-regular;
+
+  &__title {
+    font-family: $os-bold;
+    font-size: 150px;
+  }
+
+  &__desc {
+    font-size: 18px;
+    margin-top: 10px;
+    width: 70%;
+    text-align: center;
+    line-height: 28px;
+  }
+
+  &__link {
+    text-decoration: underline;
+    color: $body-color;
+  }
+}

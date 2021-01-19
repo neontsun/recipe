@@ -15,11 +15,13 @@ $recipe = new RecipeModel;
 $linkArray = $recipe->getRecipesLinks();
 
 foreach ($linkArray as $value) {
+
 	$link = $value["link"];
 	$routes["recipe/$link"] = [
 		'controller' => 'recipe',
 		'action' => 'index'
 	];
+	
 }
 
 return $routes;

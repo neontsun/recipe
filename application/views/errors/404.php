@@ -5,11 +5,13 @@
 
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
-	<title>404 | Такой страницы нет</title>
+	<link rel="shortcut icon" href="/img/shortcut-icon.ico">
+
+	<title>Такой страницы нет | 404</title>
 
 	<link rel="stylesheet" href="/public/css/normalize.css">
-	<link rel="stylesheet" href="/public/css/style.css">
+	<link rel="stylesheet" href="/public/css/main.css">
+
 
 </head>
 
@@ -17,34 +19,18 @@
 
 	<div class="wrapper">
 
-		<div class="menu">
-			<div class="menu__auth">
-				<div class="menu__logo">
-					<a href="/"><img class="menu__logo-img" src="/public/img/site-logo.png" alt="logotype"></a>
-				</div>
-				<div class="menu__buttons">
-					<a href="/register"><button class="btn menu__btn">Регистрация</button></a>
-					<a href="/login"><button class="btn menu__btn btn_fill_green">Вход</button></a>
-				</div>
-			</div>
-			<div class="separator menu__separator"></div>
-			<div class="menu__nav">
-				<span class="menu__nav-item">Рецепты</span>
-				<span class="menu__nav-item">Статьи</span>
+		<div class="section section_padding_vert section_padding_hor header">
+			<div class="header__logo">
+				<img src="/public/img/logotype.png" alt="logotype" class="header__img">
 			</div>
 		</div>
 
-		<div class="content">
+		<div class="section section_padding_hor content">
 
-			<div class="error">
-				<h1 class="error__code">404</h1>
-				<p class="error__description">
-					Такой страницы нет. Вероятно, ссылка, по которой вы сюда попали, устарела, или вы
-					ошиблись, когда набирали адрес.
-				</p>
-				<p class="error__description">
-					Вы можете перейти на <a href="/" class="error__link">главную страницу</a>
-				</p>
+			<div class="section section_padding_hor section_padding_vert error">
+				<div class="error__title">404</div>
+				<div class="error__desc">Такой страницы нет. Вероятно, сслыка, по которой вы сюда попали, устарела, или вы ошиблись, когда набирали адрес</div>
+				<div class="error__desc">Вы можете перейти на <a href="/" class="error__link">главную страницу</a></div>
 			</div>
 
 		</div>

@@ -17,7 +17,7 @@ try {
 	});
 
 	session_start();
-	// pretty($_GET);
+
 	$router = new Router();
 	$router->run();
 
