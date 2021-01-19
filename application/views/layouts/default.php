@@ -4,15 +4,16 @@
 <head>
 
 	<meta charset="UTF-8">
-	<link rel="shortcut icon" href="/public/img/site-icon.ico">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="/img/shortcut-icon.ico">
 
 	<title>
 		<?php echo $title; ?>
 	</title>
 
 	<link rel="stylesheet" href="/public/css/normalize.css">
-	<link rel="stylesheet" href="/public/css/style.css">
+	<link rel="stylesheet" href="/public/css/main.css">
+
 
 </head>
 
@@ -20,216 +21,254 @@
 
 	<div class="wrapper">
 
-		<div class="menu">
-			<div class="menu__auth">
-				<div class="menu__logo">
-					<a href="/"><img class="menu__logo-img" src="/public/img/site-logo.png" alt="logotype"></a>
-				</div>
-				<div class="menu__buttons">
-					<a href="/register"><button class="btn menu__btn">Регистрация</button></a>
-					<a href="/login"><button class="btn menu__btn btn_fill_green">Вход</button></a>
-				</div>
-			</div>
-			<div class="separator menu__separator"></div>
-			<div class="menu__nav">
-				<span class="menu__nav-item">Рецепты</span>
-				<span class="menu__nav-item">Статьи</span>
+		<div class="section section_padding_vert section_padding_hor header">
+			<div class="header__logo">
+				<img src="/public/img/logotype.png" alt="logotype" class="header__img">
 			</div>
 		</div>
 
-		<div class="content">
+		<div class="section section_padding_hor content">
 
-			<section class="section header">
-				<h1 class="header__text">Каталог рецептов</h1>
-			</section>
+			<div class="section section_padding_vert head">
+				<h1 class="head__text">Каталог рецептов</h1>
+			</div>
+
 			<div class="separator"></div>
 
-			<section class="section search">
+			<div class="section section_padding_vert search">
 				<div class="search__recipe-count">
-					Рецептов найдено:
-					<?php echo $data[1]; ?>
+					<span>Рецептов найдено: </span>
+					<span class="search__recipe-count_bold">0</span>
 				</div>
-				<form action="" method="GET" class="search__form">
-					<div class="search__icon">
-						<img src="/public/img/search-icon.svg" alt="search-icon-img" class="search__icon-img">
+				<form class="search__form">
+					<div class="search__form-icon">
+						<img src="/public/img/search-icon.svg" alt="icon" class="search__form-icon-img">
 					</div>
-					<input type="text/submit" class="search__input" placeholder="Поиск по названию">
+					<input type="text" placeholder="Название рецепта" class="search__input">
 				</form>
-				<div class="search__sort">
-					Сортировать: <div class="search__sort-filter search__sort_active">Новые</div>
-					<div class="search__sort-icon">
-						<img src="/public/img/down-arrow.svg" alt="down arrow" class="search__sort-icon-img">
+				<div class="search__filter">
+					<span>Сортировать по: </span>
+					<div class="search__list-btn">
+						<span class="search__btn-text">Новые</span>
+						<div class="search__btn-icon">
+							<img src="/public/img/arrow-down-icon.svg" alt="arrow" class="search__btn-icon-img">
+						</div>
 					</div>
 				</div>
-			</section>
+			</div>
+
 			<div class="separator"></div>
 
-			<section class="section	recipes">
-				<div class="recipes__filter">
-					<div class="filter">
-						<button class="filter__accordion">
-							<div class="filter__icon">
-								<img src="/public/img/down-arrow.svg" alt="down arrow" class="filter__icon-img">
-							</div>
-							По категории блюд
-						</button>
-						<div class="filter__panel">
-							<label for="" class="filter__checkbox-text">
-								<input type="checkbox" class="filter__checkbox">
-								Выпечка
-							</label>
-							<label for="" class="filter__checkbox-text">
-								<input type="checkbox" class="filter__checkbox">
-								Основные блюда
-							</label>
-							<label for="" class="filter__checkbox-text">
-								<input type="checkbox" class="filter__checkbox">
-								Салаты
-							</label>
-							<label for="" class="filter__checkbox-text">
-								<input type="checkbox" class="filter__checkbox">
-								Супы
-							</label>
-							<label for="" class="filter__checkbox-text">
-								<input type="checkbox" class="filter__checkbox">
-								Десерты
-							</label>
-							<label for="" class="filter__checkbox-text">
-								<input type="checkbox" class="filter__checkbox">
-								Запеканки
-							</label>
-							<label for="" class="filter__checkbox-text">
-								<input type="checkbox" class="filter__checkbox">
-								Блины, оладьи, сырники
-							</label>
-							<label for="" class="filter__checkbox-text">
-								<input type="checkbox" class="filter__checkbox">
-								Соусы и заправки
-							</label>
-							<label for="" class="filter__checkbox-text">
-								<input type="checkbox" class="filter__checkbox">
-								Каши
-							</label>
-							<label for="" class="filter__checkbox-text">
-								<input type="checkbox" class="filter__checkbox">
-								Бутерброды
-							</label>
-							<label for="" class="filter__checkbox-text">
-								<input type="checkbox" class="filter__checkbox">
-								Пельмени и вареники
-							</label>
-							<label for="" class="filter__checkbox-text">
-								<input type="checkbox" class="filter__checkbox">
-								Шашлык
-							</label>
-							<label for="" class="filter__checkbox-text">
-								<input type="checkbox" class="filter__checkbox">
-								Хлеб
-							</label>
-							<label for="" class="filter__checkbox-text">
-								<input type="checkbox" class="filter__checkbox">
-								Напитки
-							</label>
+			<div class="section section_padding_vert filters">
+
+				<div class="filters__item">
+					<button class="filters__accordion">
+						<span>По категории блюд</span>
+						<div class="filters__accordion-icon">
+							<img src="/public/img/arrow-down-icon.svg" alt="icon" class="filters__accordion-icon-img">
 						</div>
-						<div class="separator filter__separator"></div>
-					</div>
-					<div class="filter">
-						<button class="filter__accordion">
-							<div class="filter__icon">
-								<img src="/public/img/down-arrow.svg" alt="down arrow" class="filter__icon-img">
-							</div>
-							Быстрые рецепты
-						</button>
-						<div class="filter__panel">
-							<label for="" class="filter__checkbox-text">
-								<input type="checkbox" class="filter__checkbox">
-								до 15 минут
-							</label>
-							<label for="" class="filter__checkbox-text">
-								<input type="checkbox" class="filter__checkbox">
-								до 30 минут
-							</label>
-							<label for="" class="filter__checkbox-text">
-								<input type="checkbox" class="filter__checkbox">
-								до 45 минут
-							</label>
-							<label for="" class="filter__checkbox-text">
-								<input type="checkbox" class="filter__checkbox">
-								до 60 минут
-							</label>
+					</button>
+					<div class="filters__panel">
+						<div class="filters__panel-item">
+							<input type="checkbox" class="filters__checkbox" id="filtersCheckbox1">
+							<label for="filtersCheckbox1" class="filters__checkbox-text">Выпечка</label>
 						</div>
-						<div class="separator filter__separator"></div>
-					</div>
-					<div class="filter">
-						<button class="filter__accordion">
-							<div class="filter__icon">
-								<img src="/public/img/down-arrow.svg" alt="down arrow" class="filter__icon-img">
-							</div>
-							Время приема пищи
-						</button>
-						<div class="filter__panel">
-							<label for="" class="filter__checkbox-text">
-								<input type="checkbox" class="filter__checkbox">
-								Завтрак
-							</label>
-							<label for="" class="filter__checkbox-text">
-								<input type="checkbox" class="filter__checkbox">
-								Обед
-							</label>
-							<label for="" class="filter__checkbox-text">
-								<input type="checkbox" class="filter__checkbox">
-								Полдник
-							</label>
-							<label for="" class="filter__checkbox-text">
-								<input type="checkbox" class="filter__checkbox">
-								Ужин
-							</label>
+						<div class="filters__panel-item">
+							<input type="checkbox" class="filters__checkbox" id="filtersCheckbox2">
+							<label for="filtersCheckbox2" class="filters__checkbox-text">Основные блюда</label>
 						</div>
-						<div class="separator filter__separator"></div>
-					</div>
-					<div class="filter">
-						<button class="filter__accordion">
-							<div class="filter__icon">
-								<img src="/public/img/down-arrow.svg" alt="down arrow" class="filter__icon-img">
-							</div>
-							По праздникам
-						</button>
-						<div class="filter__panel">
-							<label for="" class="filter__checkbox-text">
-								<input type="checkbox" class="filter__checkbox">
-								Новый год
-							</label>
-							<label for="" class="filter__checkbox-text">
-								<input type="checkbox" class="filter__checkbox">
-								Пасха
-							</label>
-							<label for="" class="filter__checkbox-text">
-								<input type="checkbox" class="filter__checkbox">
-								Масленица
-							</label>
-							<label for="" class="filter__checkbox-text">
-								<input type="checkbox" class="filter__checkbox">
-								Пост
-							</label>
+						<div class="filters__panel-item">
+							<input type="checkbox" class="filters__checkbox" id="filtersCheckbox3">
+							<label for="filtersCheckbox3" class="filters__checkbox-text">Салаты</label>
 						</div>
-						<div class="separator filter__separator"></div>
+						<div class="filters__panel-item">
+							<input type="checkbox" class="filters__checkbox" id="filtersCheckbox4">
+							<label for="filtersCheckbox4" class="filters__checkbox-text">Супы</label>
+						</div>
+						<div class="filters__panel-item">
+							<input type="checkbox" class="filters__checkbox" id="filtersCheckbox5">
+							<label for="filtersCheckbox5" class="filters__checkbox-text">Десерты</label>
+						</div>
+						<div class="filters__panel-item">
+							<input type="checkbox" class="filters__checkbox" id="filtersCheckbox6">
+							<label for="filtersCheckbox6" class="filters__checkbox-text">Запеканки</label>
+						</div>
+						<div class="filters__panel-item">
+							<input type="checkbox" class="filters__checkbox" id="filtersCheckbox7">
+							<label for="filtersCheckbox7" class="filters__checkbox-text">Блины, оладьи, сырники</label>
+						</div>
+						<div class="filters__panel-item">
+							<input type="checkbox" class="filters__checkbox" id="filtersCheckbox8">
+							<label for="filtersCheckbox8" class="filters__checkbox-text">Соусы и заправки</label>
+						</div>
+						<div class="filters__panel-item">
+							<input type="checkbox" class="filters__checkbox" id="filtersCheckbox9">
+							<label for="filtersCheckbox9" class="filters__checkbox-text">Каши</label>
+						</div>
+						<div class="filters__panel-item">
+							<input type="checkbox" class="filters__checkbox" id="filtersCheckbox10">
+							<label for="filtersCheckbox10" class="filters__checkbox-text">Бутерброды</label>
+						</div>
+						<div class="filters__panel-item">
+							<input type="checkbox" class="filters__checkbox" id="filtersCheckbox11">
+							<label for="filtersCheckbox11" class="filters__checkbox-text">Пельмени и вареники</label>
+						</div>
+						<div class="filters__panel-item">
+							<input type="checkbox" class="filters__checkbox" id="filtersCheckbox12">
+							<label for="filtersCheckbox12" class="filters__checkbox-text">Шашлык</label>
+						</div>
+						<div class="filters__panel-item">
+							<input type="checkbox" class="filters__checkbox" id="filtersCheckbox13">
+							<label for="filtersCheckbox13" class="filters__checkbox-text">Хлеб</label>
+						</div>
+						<div class="filters__panel-item">
+							<input type="checkbox" class="filters__checkbox" id="filtersCheckbox14">
+							<label for="filtersCheckbox14" class="filters__checkbox-text">Напитки</label>
+						</div>
 					</div>
-					<button class="btn recipes__btn">Показать</button>
+				</div>
+				<div class="filters__item">
+					<button class="filters__accordion">
+						<span>Быстрые рецепты</span>
+						<div class="filters__accordion-icon">
+							<img src="/public/img/arrow-down-icon.svg" alt="icon" class="filters__accordion-icon-img">
+						</div>
+					</button>
+					<div class="filters__panel">
+						<div class="filters__panel-item">
+							<input type="checkbox" class="filters__checkbox" id="filtersCheckbox15">
+							<label for="filtersCheckbox15" class="filters__checkbox-text">до 15 минут</label>
+						</div>
+						<div class="filters__panel-item">
+							<input type="checkbox" class="filters__checkbox" id="filtersCheckbox16">
+							<label for="filtersCheckbox16" class="filters__checkbox-text">до 30 минут</label>
+						</div>
+						<div class="filters__panel-item">
+							<input type="checkbox" class="filters__checkbox" id="filtersCheckbox17">
+							<label for="filtersCheckbox17" class="filters__checkbox-text">до 45 минут</label>
+						</div>
+						<div class="filters__panel-item">
+							<input type="checkbox" class="filters__checkbox" id="filtersCheckbox18">
+							<label for="filtersCheckbox18" class="filters__checkbox-text">до 60 минут</label>
+						</div>
+					</div>
+				</div>
+				<div class="filters__item">
+					<button class="filters__accordion">
+						<span>Время приема пищи</span>
+						<div class="filters__accordion-icon">
+							<img src="/public/img/arrow-down-icon.svg" alt="icon" class="filters__accordion-icon-img">
+						</div>
+					</button>
+					<div class="filters__panel">
+						<div class="filters__panel-item">
+							<input type="checkbox" class="filters__checkbox" id="filtersCheckbox19">
+							<label for="filtersCheckbox19" class="filters__checkbox-text">Завтрак</label>
+						</div>
+						<div class="filters__panel-item">
+							<input type="checkbox" class="filters__checkbox" id="filtersCheckbox20">
+							<label for="filtersCheckbox20" class="filters__checkbox-text">Обед</label>
+						</div>
+						<div class="filters__panel-item">
+							<input type="checkbox" class="filters__checkbox" id="filtersCheckbox21">
+							<label for="filtersCheckbox21" class="filters__checkbox-text">Полдник</label>
+						</div>
+						<div class="filters__panel-item">
+							<input type="checkbox" class="filters__checkbox" id="filtersCheckbox22">
+							<label for="filtersCheckbox22" class="filters__checkbox-text">Ужин</label>
+						</div>
+					</div>
+				</div>
+				<div class="filters__item">
+					<button class="filters__accordion">
+						<span>По праздникам</span>
+						<div class="filters__accordion-icon">
+							<img src="/public/img/arrow-down-icon.svg" alt="icon" class="filters__accordion-icon-img">
+						</div>
+					</button>
+					<div class="filters__panel">
+						<div class="filters__panel-item">
+							<input type="checkbox" class="filters__checkbox" id="filtersCheckbox23">
+							<label for="filtersCheckbox23" class="filters__checkbox-text">Новый год</label>
+						</div>
+						<div class="filters__panel-item">
+							<input type="checkbox" class="filters__checkbox" id="filtersCheckbox24">
+							<label for="filtersCheckbox24" class="filters__checkbox-text">Пасха</label>
+						</div>
+						<div class="filters__panel-item">
+							<input type="checkbox" class="filters__checkbox" id="filtersCheckbox25">
+							<label for="filtersCheckbox25" class="filters__checkbox-text">Масленица</label>
+						</div>
+						<div class="filters__panel-item">
+							<input type="checkbox" class="filters__checkbox" id="filtersCheckbox26">
+							<label for="filtersCheckbox26" class="filters__checkbox-text">Пост</label>
+						</div>
+					</div>
 				</div>
 
-				<div class="recipes__content">
+			</div>
 
-					<?php echo $content; ?>
+			<div class="separator"></div>
 
+			<div class="section section_padding_vert selected-filters">
+				<span>Фильтров выбрано: </span>
+				<span class="selected-filters__count">0</span>
+				<span class="selected-filters__btn">Сбросить</span>
+			</div>
+
+			<div class="section section_padding_vert recipes grid">
+
+				<div class="card grid-item">
+					<img src="/public/img/recipes-img/meatballs-21.jpg" alt="recipe image" class="card__img">
+					<div class="card__data">
+						<div class="card__category">
+							<div class="card__cat-elem">Выпечка</div>
+							<div class="card__cat-elem">Выпечка</div>
+							<div class="card__cat-elem">Выпечка</div>
+							<div class="card__cat-elem">Выпечка</div>
+							<div class="card__cat-more">...</div>
+						</div>
+						<div class="card__title">Название рецепта</div>
+						<div class="card__desc">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minus, earum!</div>
+						<div class="card__date">22 сентября 2020</div>
+						<div class="separator card__separator"></div>
+						<div class="card__feedback">
+							<div class="card__feedback-content">
+								<div class="card__social-item">
+									<div class="card__social-icon">
+										<img src="/public/img/like-icon.svg" alt="icon" class="card__social-img">
+									</div>
+									<div class="card__social-count">228</div>
+								</div>
+								<div class="card__social-item">
+									<div class="card__social-icon">
+										<img src="/public/img/comment-icon.svg" alt="icon" class="card__social-img">
+									</div>
+									<div class="card__social-count">1488</div>
+								</div>
+							</div>
+							<a href="/" class="card__link">Подробнее</a>
+						</div>
+					</div>
 				</div>
 
-			</section>
+			</div>
 
 		</div>
 
 	</div>
 
+	<div class="filter-modal">
+		<div class="filter-modal__title">Сортировать по</div>
+		<div class="filter-modal__link filter-modal__link_active">Новые</div>
+		<div class="filter-modal__link">Старые</div>
+		<div class="filter-modal__link">Оценкам</div>
+	</div>
+
 	<script src="/public/js/main.js"></script>
+	<script src="/public/js/masonry.pkgd.min.js"></script>
+	<script src="/public/js/grid.js"></script>
+
 </body>
 
 </html>
