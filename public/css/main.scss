@@ -380,3 +380,16 @@ body {
     }
   }
 }
+
+.empty {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__text {
+    font-family: $os-regular;
+    font-size: 20px;
+  }
+}

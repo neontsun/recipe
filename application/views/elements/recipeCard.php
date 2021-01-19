@@ -1,39 +1,60 @@
 <?php
 
 require 'application/functions/parseDate.php';
-require 'application/functions/installLimtitText.php';
 
 /* Возвращает объект карточки рецепта */
 function getRecipeCard($data) {
 
-	echo '
-		<a href="/recipe/' . $data["link"] . '">
-			<div class="card recipes__card">
-				<div class="card__img-block">
-					<img src="/public/img/recipe-img/1.jpg" alt="recipe images" class="card__img">
-				</div>
-				<div class="card__text">
-					<div class="cart__text-block">
-						<h2 class="card__title">' . $data["title"] . '</h2>
-						<p class="card__description">' . installLimtitText($data["text"]) . '</p>
-					</div>
-					<div class="card__other">
-						<span class="card__date">' . parseDate($data["date"]) . '</span>
-						<div class="separator card__separator"></div>
-						<div class="card__icon-block">
-							<div class="card__icon">
-								<img src="/public/img/like-icon.svg" alt="like icon" class="card__icon-img">
-								<span class="card__like-count">' . $data["like_count"] . '</span>
-							</div>
-							<div class="card__icon">
-								<img src="/public/img/comment-icon.svg" alt="like icon" class="card__icon-img">
-								<span class="card__like-count">' . $data["comment_count"] . '</span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</a>
-	';
+	echo '<div class="card grid-item">';
+		echo '<img src="/public/img/recipes-img/meatballs-21.jpg" alt="recipe image" class="card__img">';
+			echo '<div class="card__data">';
+				echo '<div class="card__category">';
+					
+					if (count($data["category"]) != 0) {
+
+						$count = 0;
+						foreach ($data["category"] as $value) {
+
+							if ($count != 3) {
+
+								echo '<div class="card__cat-elem">' . $value["name"] . '</div>';
+								++$count;
+
+							}
+							else {
+
+								echo '<div class="card__cat-more">...</div>';
+								break;
+
+							}
+
+						}
+
+					}
+
+				echo '</div>';
+				echo '<div class="card__title">' . $data["title"] . '</div>';
+				echo '<div class="card__desc">' . $data["text"] . '</div>';
+				echo '<div class="card__date">' . parseDate($data["date"]) . '</div>';
+				echo '<div class="separator card__separator"></div>';
+				echo '<div class="card__feedback">';
+					echo '<div class="card__feedback-content">';
+						echo '<div class="card__social-item">';
+							echo '<div class="card__social-icon">';
+								echo '<img src="/public/img/like-icon.svg" alt="icon" class="card__social-img">';
+							echo '</div>';
+							echo '<div class="card__social-count">' . $data["like_count"] . '</div>';
+						echo '</div>';
+						echo '<div class="card__social-item">';
+							echo '<div class="card__social-icon">';
+								echo '<img src="/public/img/comment-icon.svg" alt="icon" class="card__social-img">';
+							echo '</div>';
+							echo '<div class="card__social-count">' . $data["comment_count"] . '</div>';
+						echo '</div>';
+					echo '</div>';
+					echo '<a href="/recipe/' . $data["link"] . '" class="card__link">Подробнее</a>';
+				echo '</div>';
+			echo '</div>';
+	echo '</div>';
 
 }

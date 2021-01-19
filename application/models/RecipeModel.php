@@ -55,7 +55,7 @@ class RecipeModel extends Model {
 
 	}
 
-	// Получение ссылок всех рецептов
+	/* Получение ссылок всех рецептов */ 
 	public function getRecipesLinks() {
 
 		$this->fields = [
@@ -67,9 +67,9 @@ class RecipeModel extends Model {
 
 	}
 
-	// Получение рецепта в соответствии с параметрами запроса
+	/* Получение рецепта в соответствии с параметрами запроса */
 	public function getRecipeByFilter($params, $fieldSort = "row_id", $sortStyle = "DESC") {
-
+		
 		$this->fields = [
 			'row_id',
 			'title',
@@ -86,24 +86,34 @@ class RecipeModel extends Model {
 						JOIN `category` c ON c.`row_id` = rc.`category_id` ";
 
 		if (isset($params["tag"])) {
+
 			$sql .= "WHERE ";
+
 			foreach ($params["tag"] as $category) {
+
 				foreach ($category as $item) {
+
 					$sql .= "c.`name` = ? OR ";
 					$bindArr[$item] = "s";
+
 				}
+
 			}
+
 			$sql = substr($sql, 0, strlen($sql) - 3);
+
 		}
 		if (isset($params["title"]) && isset($params["tag"])) {
+
 			$sql .= "AND r.`title` LIKE '%" . $params["title"] . "%' ";
+
 		}
 		else if (isset($params["title"])) {
+
 			$sql .= "WHERE r.`title` LIKE '%" . $params["title"] . "%' ";
+
 		}
-		if (isset($params["sorting"])) {
-			$sortStyle = $params["sorting"] != "ASC" && $params["sorting"] != "DESC" ? "DESC" : $params["sorting"];
-		}		
+		
 		$bindArr[count($bindArr)] = "i";
 
 		$sql .= "GROUP BY rc.`recipe_id`
@@ -111,6 +121,22 @@ class RecipeModel extends Model {
 		$sql .= "ORDER BY r.`$fieldSort` $sortStyle";
 		
 		return $this->db->getQuery($sql, $this->fields, $bindArr);
+
+	}
+
+	/* Получение всех категорий рецепта */
+	public function getAllCategoryById($id) {
+
+		$this->fields = [
+			"name"
+		];
+
+		$sql = "SELECT c.`name`
+						FROM `category` c
+						JOIN `recipe-category` rc ON rc.`category_id` = c.`row_id`
+						WHERE rc.`recipe_id` = ?";
+
+		return $this->db->getQuery($sql, $this->fields, [$id => "i"]);
 
 	}
 

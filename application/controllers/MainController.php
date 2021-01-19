@@ -10,19 +10,21 @@ class MainController extends Controller {
 	
 	public function indexAction() {
 
-		$data;
-		$recipeCount;
-
 		if ($_GET) {
-			
-			// pretty($_GET);
-			$data = $this->getRecipesByFilter($_GET);
+
+			if (isset($_GET["sorting"])) {
+
+				$sort = $this->parseSortingParams($_GET["sorting"]);
+				$data = $this->getRecipesByFilter($_GET, $sort[0], $sort[1]);
+
+			}
+			else
+				$data = $this->getRecipesByFilter($_GET);
 
 		}
-		else {
+		else
 			$data = $this->getAllDataForAllRecipes();
-		}
-
+		
 		$recipeCount = $data ? count($data) : 0;
 
 		$this->set_layouts("default");
@@ -40,9 +42,9 @@ class MainController extends Controller {
 		foreach ($recipes as &$value) {
 			
 			$id = $value["row_id"];
-			$commentCount = $commentModel->getCommentCountByRecipeId($id);
-			
-			$value["comment_count"] = $commentCount;
+			$value["comment_count"] = $commentModel->getCommentCountByRecipeId($id);
+			$value["category"] = $recipeModel->getAllCategoryById($id);
+
 		}
 		unset($value);
 
@@ -54,7 +56,7 @@ class MainController extends Controller {
 
 		$recipeModel = new RecipeModel;
 		$commentModel = new CommentModel;
-
+		
 		$recipes = $recipeModel->getRecipeByFilter($params, $fieldSort, $sortStyle);
 
 		if ($recipes) {
@@ -62,8 +64,8 @@ class MainController extends Controller {
 				foreach ($recipes as &$value) {
 
 					$id = $value["row_id"];
-					$commentCount = $commentModel->getCommentCountByRecipeId($id);
-					$value["comment_count"] = $commentCount;
+					$value["comment_count"] = $commentModel->getCommentCountByRecipeId($id);
+					$value["category"] = $recipeModel->getAllCategoryById($id);
 
 				}
 				unset($value);
@@ -71,8 +73,20 @@ class MainController extends Controller {
 				return $recipes;
 			
 		}
-		else return false;
+		else return [];
 	
+	}
+
+	private function parseSortingParams($sorting) {
+
+		switch ($sorting) {
+
+			case 'Старые': return ["row_id", "ASC"]; break;
+			case 'Новые': return ["row_id", "DESC"]; break;
+			case 'Оценкам': return ["like_count", "DESC"]; break;
+
+		}
+
 	}
 
 }

@@ -22,7 +22,7 @@ class CommentModel extends Model {
 						FROM `comment` c
 						JOIN `recipe-comment` rc ON `c`.row_id = `rc`.comment_id
 						WHERE `rc`.recipe_id = ?";
-
+						
 		return $this->db->getQuery($sql, $this->fields, [$id => "i"]);
 
 	}

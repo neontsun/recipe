@@ -38,7 +38,9 @@
 			<div class="section section_padding_vert search">
 				<div class="search__recipe-count">
 					<span>Рецептов найдено: </span>
-					<span class="search__recipe-count_bold">0</span>
+					<span class="search__recipe-count_bold">
+						<?php echo $data[1]; ?>
+					</span>
 				</div>
 				<form class="search__form">
 					<div class="search__form-icon">
@@ -218,39 +220,7 @@
 
 			<div class="section section_padding_vert recipes grid">
 
-				<div class="card grid-item">
-					<img src="/public/img/recipes-img/meatballs-21.jpg" alt="recipe image" class="card__img">
-					<div class="card__data">
-						<div class="card__category">
-							<div class="card__cat-elem">Выпечка</div>
-							<div class="card__cat-elem">Выпечка</div>
-							<div class="card__cat-elem">Выпечка</div>
-							<div class="card__cat-elem">Выпечка</div>
-							<div class="card__cat-more">...</div>
-						</div>
-						<div class="card__title">Название рецепта</div>
-						<div class="card__desc">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minus, earum!</div>
-						<div class="card__date">22 сентября 2020</div>
-						<div class="separator card__separator"></div>
-						<div class="card__feedback">
-							<div class="card__feedback-content">
-								<div class="card__social-item">
-									<div class="card__social-icon">
-										<img src="/public/img/like-icon.svg" alt="icon" class="card__social-img">
-									</div>
-									<div class="card__social-count">228</div>
-								</div>
-								<div class="card__social-item">
-									<div class="card__social-icon">
-										<img src="/public/img/comment-icon.svg" alt="icon" class="card__social-img">
-									</div>
-									<div class="card__social-count">1488</div>
-								</div>
-							</div>
-							<a href="/" class="card__link">Подробнее</a>
-						</div>
-					</div>
-				</div>
+				<?php echo $content; ?>
 
 			</div>
 

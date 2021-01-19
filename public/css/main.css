@@ -632,4 +632,23 @@ body {
 .filter-modal__link:hover {
   cursor: pointer;
 }
+
+.empty {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.empty__text {
+  font-family: "OpenSans-Regular";
+  font-size: 20px;
+}
 /*# sourceMappingURL=main.css.map */
