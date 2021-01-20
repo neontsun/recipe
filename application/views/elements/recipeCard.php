@@ -6,7 +6,7 @@ require 'application/functions/parseDate.php';
 function getRecipeCard($data) {
 
 	echo '<div class="card grid-item">';
-		echo '<img src="/public/img/recipes-img/meatballs-21.jpg" alt="recipe image" class="card__img">';
+		echo '<img src="/public/img/recipes-img/' . $data["image"][0]["link"] . '" alt="recipe image" class="card__img">';
 			echo '<div class="card__data">';
 				echo '<div class="card__category">';
 					
@@ -56,5 +56,5 @@ function getRecipeCard($data) {
 				echo '</div>';
 			echo '</div>';
 	echo '</div>';
-
+	
 }

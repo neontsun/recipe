@@ -1,6 +1,7 @@
 <?php
 
 namespace application\controllers;
+
 use application\core\Controller;
 use application\models\RecipeModel;
 use application\models\CommentModel;
@@ -13,10 +14,8 @@ class MainController extends Controller {
 		if ($_GET) {
 
 			if (isset($_GET["sorting"])) {
-
 				$sort = $this->parseSortingParams($_GET["sorting"]);
-				$data = $this->getRecipesByFilter($_GET, $sort[0], $sort[1]);
-
+				$data = $this->getRecipesByFilter($_GET, $sort);
 			}
 			else
 				$data = $this->getRecipesByFilter($_GET);
@@ -32,18 +31,19 @@ class MainController extends Controller {
 
 	}
 
-	private function getAllDataForAllRecipes($fieldSort = "row_id", $sortStyle = "DESC") {
+	private function getAllDataForAllRecipes() {
 
 		$recipeModel = new RecipeModel;
 		$commentModel = new CommentModel;
 
-		$recipes = $recipeModel->getAllRecipes($fieldSort, $sortStyle);
+		$recipes = $recipeModel->getAllRecipes();
 
 		foreach ($recipes as &$value) {
 			
 			$id = $value["row_id"];
 			$value["comment_count"] = $commentModel->getCommentCountByRecipeId($id);
 			$value["category"] = $recipeModel->getAllCategoryById($id);
+			$value["image"] = $recipeModel->getImageById($id);
 
 		}
 		unset($value);
@@ -52,25 +52,29 @@ class MainController extends Controller {
 
 	}
 
-	private function getRecipesByFilter($params, $fieldSort = "row_id", $sortStyle = "DESC") {
+	private function getRecipesByFilter($params, $sorting = []) {
 
 		$recipeModel = new RecipeModel;
 		$commentModel = new CommentModel;
 		
-		$recipes = $recipeModel->getRecipeByFilter($params, $fieldSort, $sortStyle);
+		if ($sorting)
+			$recipes = $recipeModel->getRecipeByFilter($params, $sorting[0], $sorting[1]);
+		else
+			$recipes = $recipeModel->getRecipeByFilter($params);
 
 		if ($recipes) {
 
-				foreach ($recipes as &$value) {
+			foreach ($recipes as &$value) {
 
-					$id = $value["row_id"];
-					$value["comment_count"] = $commentModel->getCommentCountByRecipeId($id);
-					$value["category"] = $recipeModel->getAllCategoryById($id);
+				$id = $value["row_id"];
+				$value["comment_count"] = $commentModel->getCommentCountByRecipeId($id);
+				$value["category"] = $recipeModel->getAllCategoryById($id);
+				$value["image"] = $recipeModel->getImageById($id);
 
-				}
-				unset($value);
+			}
+			unset($value);
 
-				return $recipes;
+			return $recipes;
 			
 		}
 		else return [];
@@ -84,6 +88,7 @@ class MainController extends Controller {
 			case 'Старые': return ["row_id", "ASC"]; break;
 			case 'Новые': return ["row_id", "DESC"]; break;
 			case 'Оценкам': return ["like_count", "DESC"]; break;
+			default: return [];
 
 		}
 

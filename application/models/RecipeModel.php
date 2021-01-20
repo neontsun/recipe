@@ -140,4 +140,20 @@ class RecipeModel extends Model {
 
 	}
 
+	/* Получение изображений рецепта */
+	public function getImageById($id) {
+
+		$this->fields = [
+			"link"
+		];
+
+		$sql = "SELECT i.`link`
+						FROM `image` i
+						WHERE i.`recipe_id` = ? 
+						ORDER BY `order_index` ASC";
+
+		return $this->db->getQuery($sql, $this->fields, [$id => "i"]);
+
+	}
+
 }

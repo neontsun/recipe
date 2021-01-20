@@ -5,7 +5,7 @@
 
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="shortcut icon" href="/img/shortcut-icon.ico">
+	<link rel="shortcut icon" href="/public/img/shortcut-icon.ico">
 
 	<title>
 		<?php echo $title; ?>
