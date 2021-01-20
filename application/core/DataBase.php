@@ -19,55 +19,55 @@ class DataBase {
 
 	}
 
-	public function getInstance() {
+	public function getDbObject() {
 		return $this->mysqli;
 	}
 
-	public function getQuery($sql, $fields, $params) {
+	public function getQuery($sqlQuery, $returnedRequestFields, $bindParams) {
 		
-		if ($stmt = $this->mysqli->prepare($sql)) {
+		if ($queryStatement = $this->mysqli->prepare($sqlQuery)) {
 			
-			if ($params) {
-				$type = "";
-				$vars = [];
-				foreach ($params as $key => $value) {
-					$type .= $value;
-					$vars[] = $key;
+			if ($bindParams) {
+				$types = "";
+				$bindValue = [];
+				foreach ($bindParams as $param => $type) {
+					$types .= $type;
+					$bindValue[] = $param;
 				}
 				
-				$stmt->bind_param($type, ...$vars);
+				$queryStatement->bind_param($types, ...$bindValue);
 			}
 
-			$stmt->execute();
+			$queryStatement->execute();
 
-			$result = $stmt->get_result();
-			$array = [];
+			$queryResult = $queryStatement->get_result();
+			$resultReturnedArray = [];
 			
-			if ($result->num_rows != 0) {
+			if ($queryResult->num_rows != 0) {
 
-				while ($row = $result->fetch_array(MYSQLI_NUM)) {
+				while ($resultRow = $queryResult->fetch_array(MYSQLI_NUM)) {
 					
-					if (count($row) == count($fields)) {
-
-						$temp = [];
-						for ($i = 0; $i < count($row); $i++) { 
-							$temp[$fields[$i]] = $row[$i];
+					if (count($resultRow) == count($returnedRequestFields)) {
+						
+						$tempArray = [];
+						for ($i = 0; $i < count($resultRow); $i++) { 
+							$tempArray[$returnedRequestFields[$i]] = $resultRow[$i];
 						}
-						$array[] = $temp;
-
+						$resultReturnedArray[] = $tempArray;
+						
 					}
 					else throw new Exception("Количество возвращаемых полей не соответствует количеству указанных");
 
 				}
 
-				$result->close();
+				$queryResult->close();
 				
 			}
 			
 		}
 		else throw new Exception("Ошибка запроса: " . $this->mysqli->error);
 
-		return $array;
+		return $resultReturnedArray;
 
 	}
 

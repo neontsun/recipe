@@ -4,7 +4,7 @@ function parseDate($date) {
 
 	$dt = date('d-m-Y', strtotime(str_replace('-','/', $date)));
 	$dt = explode('-', $dt);
-	$mon;
+	$mon = "";
 
 	switch ($dt[1]) {
 

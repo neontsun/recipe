@@ -9,18 +9,18 @@ class Router {
 
 	public function __construct() {
 
-		$arr = require_once 'application/config/routes.php';
+		$arrayOfRoutes = require_once 'application/config/routes.php';
 		
-		foreach ($arr as $key => $value) {
-			$this->add($key, $value);
+		foreach ($arrayOfRoutes as $path => $setting) {
+			$this->fillArrayOfRoutes($path, $setting);
 		}
 
 	}
 	
-	private function add($route, $params) {
+	private function fillArrayOfRoutes($path, $setting) {
 
-		$route = '#^' . $route . '$#';
-		$this->routes[$route] = $params;
+		$path = '#^' . $path . '$#';
+		$this->routes[$path] = $setting;
 
 	}
 
@@ -28,10 +28,10 @@ class Router {
 		
 		$url = trim(parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH), '/');
 		
-		foreach ($this->routes as $route => $params) {
+		foreach ($this->routes as $path => $setting) {
 			
-			if (preg_match($route, $url, $matches)) {
-				$this->params = $params;
+			if (preg_match($path, $url, $matches)) {
+				$this->params = $setting;
 				return true;
 			}
 
@@ -45,16 +45,17 @@ class Router {
 
 		if ($this->match()) {
 			
-			$path = 'application\controllers\\' . ucfirst($this->params["controller"]) . 'Controller';
+			$controllerName = ucfirst($this->params["controller"]);
+			$controllerPath = 'application\controllers\\' . $controllerName . 'Controller';
 
-			if (class_exists($path)) {
+			if (class_exists($controllerPath)) {
 
-				$action = $this->params["action"] . 'Action';
+				$actionName = $this->params["action"] . 'Action';
 
-				if (method_exists($path, $action)) {
+				if (method_exists($controllerPath, $actionName)) {
 					
-					$controller = new $path($this->params);
-					$controller->$action();
+					$controller = new $controllerPath($this->params);
+					$controller->$actionName();
 
 				}
 				else throw new Exception("Метод не найден");

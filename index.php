@@ -7,10 +7,10 @@ try {
 	
 	spl_autoload_register(function ($class) {
 
-		$path = str_replace('\\', '/', $class . '.php');
+		$classPath = str_replace('\\', '/', $class . '.php');
 
-		if (file_exists($path)) {
-			require $path;
+		if (file_exists($classPath)) {
+			require $classPath;
 		}
 		else throw new Exception("Класс не найден");
 

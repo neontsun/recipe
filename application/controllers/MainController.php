@@ -11,23 +11,28 @@ class MainController extends Controller {
 	
 	public function indexAction() {
 
-		if ($_GET) {
+		$queryParams = $_GET;
 
-			if (isset($_GET["sorting"])) {
-				$sort = $this->parseSortingParams($_GET["sorting"]);
-				$data = $this->getRecipesByFilter($_GET, $sort);
+		if ($queryParams) {
+
+			if (isset($queryParams["sorting"])) {
+				$sortingValue = $this->parseSortingParams($queryParams["sorting"]);
+				$recipesArray = $this->getRecipesByFilter($queryParams, $sortingValue);
 			}
 			else
-				$data = $this->getRecipesByFilter($_GET);
+				$recipesArray = $this->getRecipesByFilter($queryParams);
 
 		}
 		else
-			$data = $this->getAllDataForAllRecipes();
+			$recipesArray = $this->getAllDataForAllRecipes();
 		
-		$recipeCount = $data ? count($data) : 0;
-
-		$this->set_layouts("default");
-		$this->view->render("Пошаговые рецепты с фото", [$data, $recipeCount]);
+		$allDataForRecipes = [
+			$recipesArray,
+			count($recipesArray)
+		];
+		
+		$this->setLayouts("default");
+		$this->view->render("Пошаговые рецепты с фото", $allDataForRecipes);
 
 	}
 
@@ -35,62 +40,91 @@ class MainController extends Controller {
 
 		$recipeModel = new RecipeModel;
 		$commentModel = new CommentModel;
+		$categoryModel = new CategoryModel;
 
-		$recipes = $recipeModel->getAllRecipes();
+		$allRecipes = $recipeModel->getAllRecipes();
 
-		foreach ($recipes as &$value) {
+		if ($allRecipes) {
+
+			foreach ($allRecipes as &$recipe) {
 			
-			$id = $value["row_id"];
-			$value["comment_count"] = $commentModel->getCommentCountByRecipeId($id);
-			$value["category"] = $recipeModel->getAllCategoryById($id);
-			$value["image"] = $recipeModel->getImageById($id);
+				$recipeId = $recipe["row_id"];
+				$recipe["comment_count"] = $commentModel->getCommentCountByRecipeId($recipeId);
+				$recipe["category"] = $categoryModel->getCategorysByRecipeId($recipeId);
+				$recipe["image"] = $recipeModel->getImageById($recipeId);
+
+			}
+			unset($recipe);
+
+			return $allRecipes;
 
 		}
-		unset($value);
-
-		return $recipes;
+		else return [];
 
 	}
 
-	private function getRecipesByFilter($params, $sorting = []) {
+	private function getRecipesByFilter($params, $sortingArray = []) {
 
 		$recipeModel = new RecipeModel;
 		$commentModel = new CommentModel;
+		$categoryModel = new CategoryModel;
 		
-		if ($sorting)
-			$recipes = $recipeModel->getRecipeByFilter($params, $sorting[0], $sorting[1]);
+		if ($sortingArray) {
+			$sortingField = $sortingArray["field"];
+			$sortingValue = $sortingArray["value"];
+			$allRecipes = $recipeModel->getRecipeByFilter($params, $sortingField, $sortingValue);
+		}
 		else
-			$recipes = $recipeModel->getRecipeByFilter($params);
+			$allRecipes = $recipeModel->getRecipeByFilter($params);
 
-		if ($recipes) {
+		if ($allRecipes) {
 
-			foreach ($recipes as &$value) {
+			foreach ($allRecipes as &$recipe) {
 
-				$id = $value["row_id"];
-				$value["comment_count"] = $commentModel->getCommentCountByRecipeId($id);
-				$value["category"] = $recipeModel->getAllCategoryById($id);
-				$value["image"] = $recipeModel->getImageById($id);
+				$recipeId = $recipe["row_id"];
+				$recipe["comment_count"] = $commentModel->getCommentCountByRecipeId($recipeId);
+				$recipe["category"] = $categoryModel->getCategorysByRecipeId($recipeId);
+				$recipe["image"] = $recipeModel->getImageById($recipeId);
 
 			}
-			unset($value);
+			unset($recipe);
 
-			return $recipes;
+			return $allRecipes;
 			
 		}
 		else return [];
 	
 	}
 
-	private function parseSortingParams($sorting) {
+	private function parseSortingParams($querySorting) {
 
-		switch ($sorting) {
+		$sortingValue = [];
 
-			case 'Старые': return ["row_id", "ASC"]; break;
-			case 'Новые': return ["row_id", "DESC"]; break;
-			case 'Оценкам': return ["like_count", "DESC"]; break;
+		switch ($querySorting) {
+
+			case 'Старые':  
+				$sortingValue = [
+					"field" => "row_id", 
+					"value" => "ASC"
+				]; 
+				break;
+			case 'Новые': 
+				$sortingValue = [
+					"field" => "row_id", 
+					"value" => "DESC"
+				]; 
+				break;
+			case 'Оценкам': 
+				$sortingValue = [
+					"field" => "like_count", 
+					"value" => "DESC"
+				];
+				break;
 			default: return [];
 
 		}
+
+		return $sortingValue;
 
 	}
 

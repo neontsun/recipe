@@ -11,10 +11,10 @@ $routes = [
 
 ];
 
-$recipe = new RecipeModel;
-$linkArray = $recipe->getRecipesLinks();
+$recipeModel = new RecipeModel;
+$recipesLink = $recipeModel->getRecipesLinks();
 
-foreach ($linkArray as $value) {
+foreach ($recipesLink as $value) {
 
 	$link = $value["link"];
 	$routes["recipe/$link"] = [

@@ -4,28 +4,31 @@ namespace application\core;
 
 class View {
 
-	public $path;
-	public $layout = 'default';
+	public $actionPath;
+	public $layout;
 	public $route;
 
 	public function __construct($route) {
 
 		$this->route = $route;
-		$this->path = $route['controller'] . '/' . $route["action"];
+		$this->actionPath = $route['controller'] . '/' . $route["action"];
 
 	}
 
 	public function render($title, $data = []) {
 		
-		$path = 'application/views/' . $this->path . '.php';
+		$actionPath = 'application/views/' . $this->actionPath . '.php';
 
-		if (file_exists($path)) {
+		if (file_exists($actionPath)) {
 			
 			ob_start();
-			require $path;
+			require $actionPath;
 			$content = ob_get_clean();
 
-			require_once 'application/views/layouts/' . $this->layout . '.php';
+			if ($this->layout)
+				require_once 'application/views/layouts/' . $this->layout . '.php';
+			else
+				throw new Exception("Слой не установлен");
 
 		}
 		else throw new Exception("Вид не найден");

@@ -2,13 +2,13 @@
 
 function randomString($strlen) {
 	
-	$chars = implode("", array_merge(range('a', 'z'), range('A', 'Z')));
-	$str = '';
+	$charsArray = implode("", array_merge(range('a', 'z'), range('A', 'Z')));
+	$randomString = "";
 
 	for ($i = 0; $i < $strlen; $i++) { 
-		$str .= $chars[rand(0, strlen($chars) - 1)];
+		$randomString .= $charsArray[rand(0, strlen($charsArray) - 1)];
 	}
 	
-	return $str;
+	return $randomString;
 
 }

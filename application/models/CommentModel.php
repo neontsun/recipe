@@ -5,12 +5,10 @@ use application\core\Model;
 
 class CommentModel extends Model {
 
-	private $fields = [];
-
 	/* Получение комментариев по id рецепта */
-	public function getCommentByRecipeId($id) {
+	public function getCommentByRecipeId($recipeId) {
 
-		$this->fields = [
+		$returnedRequestFields = [
 			"row_id",
 			"text",
 			"email",
@@ -18,19 +16,21 @@ class CommentModel extends Model {
 			"like_count"
 		];
 
-		$sql = "SELECT `c`.row_id, `c`.text, `c`.email, `c`.date, `c`.like_count
-						FROM `comment` c
-						JOIN `recipe-comment` rc ON `c`.row_id = `rc`.comment_id
-						WHERE `rc`.recipe_id = ?";
-						
-		return $this->db->getQuery($sql, $this->fields, [$id => "i"]);
+		$sqlQuery = "SELECT `c`.row_id, `c`.text, `c`.email, `c`.date, `c`.like_count
+								 FROM `comment` c
+								 JOIN `recipe-comment` rc ON `c`.row_id = `rc`.comment_id
+								 WHERE `rc`.recipe_id = ?";
+		
+		$bindParams[$recipeId] = "i";
+
+		return $this->db->getQuery($sqlQuery, $returnedRequestFields, $bindParams);
 
 	}
-	
-	/* Получение количества комментариев по id рецепта */
-	public function getCommentCountByRecipeId($id) {
 
-		return count($this->getCommentByRecipeId($id));
+	/* Получение количества комментариев по id рецепта */
+	public function getCommentCountByRecipeId($recipeId) {
+
+		return count($this->getCommentByRecipeId($recipeId));
 
 	}
 

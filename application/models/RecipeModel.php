@@ -7,12 +7,10 @@ use application\models\CategoryModel;
 
 class RecipeModel extends Model {
 
-	private $fields = [];
-
 	/* Получение всех рецептов */
-	public function getAllRecipes($fieldSort = "row_id", $sortStyle = "DESC") {
+	public function getAllRecipes($orderField = "row_id", $orderMethod = "DESC") {
 
-		$this->fields = [
+		$returnedRequestFields = [
 			'row_id',
 			'title',
 			'text',
@@ -20,16 +18,19 @@ class RecipeModel extends Model {
 			'link',
 			'date'
 		];
-		$sql = "SELECT * FROM `recipe` ORDER BY `$fieldSort` $sortStyle";
 
-		return $this->db->getQuery($sql, $this->fields, []);
+		$sqlQuery = "SELECT * 
+							   FROM `recipe` 
+								 ORDER BY `$orderField` $orderMethod";
+
+		return $this->db->getQuery($sqlQuery, $returnedRequestFields, []);
 
 	}
 
 	/* Получение рецепта по id */
-	public function getRecipeById($id) {
+	public function getRecipeById($recipeId) {
 
-		$this->fields = [
+		$returnedRequestFields = [
 			'row_id',
 			'title',
 			'text',
@@ -37,40 +38,51 @@ class RecipeModel extends Model {
 			'link',
 			'date'
 		];
-		$sql = "SELECT * FROM `recipe` WHERE `row_id` = ?";
 
-		return $this->db->getQuery($sql, $this->fields, [$id => "i"]);
+		$sqlQuery = "SELECT * 
+						FROM `recipe` 
+						WHERE `row_id` = ?";
+
+		$bindParams = [$recipeId => "i"];
+
+		return $this->db->getQuery($sqlQuery, $returnedRequestFields, $bindParams);
 
 	}
 	
 	/* Получение количества рецептов */
 	public function getRecipesCount() {
 
-		$this->fields = [
+		$returnedRequestFields = [
 			"count"
 		];
-		$sql = "SELECT COUNT(`row_id`) FROM `recipe`";
 
-		return $this->db->getQuery($sql, $this->fields, [])[0];
+		$sqlQuery = "SELECT COUNT(`row_id`) 
+								 FROM `recipe`";
+
+		$recipeCount = $this->db->getQuery($sqlQuery, $returnedRequestFields, [])[0];
+
+		return $recipeCount;
 
 	}
 
 	/* Получение ссылок всех рецептов */ 
 	public function getRecipesLinks() {
 
-		$this->fields = [
+		$returnedRequestFields = [
 			"link"
 		];
-		$sql = "SELECT `link` FROM `recipe`";
 
-		return $this->db->getQuery($sql, $this->fields, []);
+		$sqlQuery = "SELECT `link` 
+								 FROM `recipe`";
+		
+		return $this->db->getQuery($sqlQuery, $returnedRequestFields, []);
 
 	}
 
 	/* Получение рецепта в соответствии с параметрами запроса */
-	public function getRecipeByFilter($params, $fieldSort = "row_id", $sortStyle = "DESC") {
+	public function getRecipeByFilter($params, $orderField = "row_id", $orderMethod = "DESC") {
 		
-		$this->fields = [
+		$returnedRequestFields = [
 			'row_id',
 			'title',
 			'text',
@@ -78,81 +90,69 @@ class RecipeModel extends Model {
 			'link',
 			'date'
 		];
-		$bindArr = [];
+		$bindParams = [];
 
-		$sql = "SELECT r.`row_id`, r.`title`, r.`text`, r.`like_count`, r.`link`, r.`date`
-						FROM `recipe` r 
-						JOIN `recipe-category` rc ON r.`row_id` = rc.`recipe_id`
-						JOIN `category` c ON c.`row_id` = rc.`category_id` ";
+		$sqlQuery = "SELECT r.`row_id`, r.`title`, r.`text`, r.`like_count`, r.`link`, r.`date`
+								 FROM `recipe` r 
+								 JOIN `recipe-category` rc ON r.`row_id` = rc.`recipe_id`
+								 JOIN `category` c ON c.`row_id` = rc.`category_id` ";
 
 		if (isset($params["tag"])) {
 
-			$sql .= "WHERE ";
+			$sqlQuery .= "WHERE ";
 
 			foreach ($params["tag"] as $category) {
 
 				foreach ($category as $item) {
 
-					$sql .= "c.`name` = ? OR ";
-					$bindArr[$item] = "s";
+					$sqlQuery .= "c.`name` = ? OR ";
+					$bindParams[$item] = "s";
 
 				}
 
 			}
 
-			$sql = substr($sql, 0, strlen($sql) - 3);
+			$sqlQuery = substr($sqlQuery, 0, strlen($sqlQuery) - 3);
 
 		}
 		if (isset($params["title"]) && isset($params["tag"])) {
 
-			$sql .= "AND r.`title` LIKE '%" . $params["title"] . "%' ";
+			$sqlQuery .= "AND r.`title` LIKE '%" . $params["title"] . "%' ";
 
 		}
 		else if (isset($params["title"])) {
 
-			$sql .= "WHERE r.`title` LIKE '%" . $params["title"] . "%' ";
+			$sqlQuery .= "WHERE r.`title` LIKE '%" . $params["title"] . "%' ";
 
 		}
 		
-		$bindArr[count($bindArr)] = "i";
-
-		$sql .= "GROUP BY rc.`recipe_id`
-						 HAVING COUNT(rc.`recipe_id`) >= ? ";
-		$sql .= "ORDER BY r.`$fieldSort` $sortStyle";
 		
-		return $this->db->getQuery($sql, $this->fields, $bindArr);
+		$sqlQuery .= "GROUP BY rc.`recipe_id`
+									HAVING COUNT(rc.`recipe_id`) >= ? ";
+		
+		$bindParams[count($bindParams)] = "i";
+		
+		$sqlQuery .= "ORDER BY r.`$orderField` $orderMethod";
 
-	}
-
-	/* Получение всех категорий рецепта */
-	public function getAllCategoryById($id) {
-
-		$this->fields = [
-			"name"
-		];
-
-		$sql = "SELECT c.`name`
-						FROM `category` c
-						JOIN `recipe-category` rc ON rc.`category_id` = c.`row_id`
-						WHERE rc.`recipe_id` = ?";
-
-		return $this->db->getQuery($sql, $this->fields, [$id => "i"]);
+		return $this->db->getQuery($sqlQuery, $returnedRequestFields, $bindParams);
 
 	}
 
 	/* Получение изображений рецепта */
-	public function getImageById($id) {
+	public function getImageById($recipeId) {
 
-		$this->fields = [
+		$returnedRequestFields = [
 			"link"
 		];
 
-		$sql = "SELECT i.`link`
-						FROM `image` i
-						WHERE i.`recipe_id` = ? 
-						ORDER BY `order_index` ASC";
+		$sqlQuery = "SELECT i.`link`
+								 FROM `image` i
+								 WHERE i.`recipe_id` = ? 
+								 ORDER BY `order_index` ASC";
 
-		return $this->db->getQuery($sql, $this->fields, [$id => "i"]);
+		$bindParams[$recipeId] = "i";
+
+		return $this->db->getQuery($sqlQuery, $returnedRequestFields, $bindParams);
 
 	}
 

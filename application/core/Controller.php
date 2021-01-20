@@ -14,7 +14,7 @@ abstract class Controller {
 
 	}
 
-	protected function set_layouts($layout) {
+	protected function setLayouts($layout) {
 
 		$this->view->layout = $layout;
 

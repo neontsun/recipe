@@ -5,23 +5,21 @@ use application\core\Model;
 
 class CategoryModel extends Model {
 
-	private $fields = [];
-
 	/* Получение всех категорий по id рецепта */
-	public function getCategoryByRecipeId($id) {
+	public function getCategorysByRecipeId($recipeId) {
 
-		$this->fields = [
-			"row_id",
-			"name",
-			"tag",
+		$returnedRequestFields = [
+			"name"
 		];
 
-		$sql = "SELECT `c`.row_id, `c`.name, `c`.tag
-						FROM `category` c
-						JOIN `recipe-category` rc ON `c`.row_id = `rc`.category_id
-						WHERE `rc`.recipe_id = ?";
+		$sqlQuery = "SELECT c.`name`
+								 FROM `category` c
+								 JOIN `recipe-category` rc ON rc.`category_id` = c.`row_id`
+								 WHERE rc.`recipe_id` = ?";
 
-		return $this->db->getQuery($sql, $this->fields, [$id => "i"]);
+		$bindParams[$recipeId] = "i";
+
+		return $this->db->getQuery($sqlQuery, $returnedRequestFields, $bindParams);
 
 	}
 
