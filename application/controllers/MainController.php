@@ -31,7 +31,7 @@ class MainController extends Controller {
 			count($recipesArray)
 		];
 		
-		$this->setLayouts("default");
+		$this->setLayouts("main");
 		$this->view->render("Пошаговые рецепты с фото", $allDataForRecipes);
 
 	}

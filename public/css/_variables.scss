@@ -1,11 +1,12 @@
 /* Colors */
-$body-color: #846EC2;
-$main-color:#D1A861;
+$body-color: #EAE0CC;
+$main-color:#F5EEE0;
 $text-color-dark: #000;
 $text-color-light: #fff;
-$text-color-gray: lighten($text-color-dark, 10%);
+$text-color-gray: lighten($text-color-dark, 15%);
 $border-color: lighten($text-color-dark, 30%);
-$link-color: $body-color;
+$link-color: #D6353E;
+$bgc-gray: darken($text-color-light, 5%);
 
 /* Fonts */
 $os-regular: 'OpenSans-Regular';
