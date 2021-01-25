@@ -1,7 +1,7 @@
 <?php
 
-function getRecipeImg() {
+function getRecipeImg($link) {
 
-	echo '<img src="/public/img/recipes-img/meatballs-21.jpg" alt="recipe image" 					class="recipe-article__recipe-img">';
+	echo '<img src="/public/img/recipes-img/'.$link.'" class="recipe-article__recipe-img">';
 
 }

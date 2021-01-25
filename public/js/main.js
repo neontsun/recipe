@@ -7,6 +7,9 @@ for (let i = 0; i < acc.length; ++i) {
 	acc[i].addEventListener("click", () => {
 
 		let panel = acc[i].nextElementSibling;
+		let icon = acc[i].childNodes[3];
+		console.log(acc[i].childNodes);
+		icon.classList.toggle("filters__accordion-icon_active");
 
 		if (panel.style.maxHeight) panel.style.maxHeight = null;
 		else panel.style.maxHeight = panel.scrollHeight + "px";
@@ -92,7 +95,7 @@ window.addEventListener("DOMContentLoaded", () => {
 // При изменении размера документа
 window.addEventListener("resize", () => {
 
-	const filterBtn = document.querySelector(".search__btn-icon-img");
+	const filterBtn = document.querySelector(".search__btn-icon");
 	let coordBtn = filterBtn.getBoundingClientRect();
 	let filterModal = document.querySelector(".filter-modal");
 	const clientWidth = document.documentElement.clientWidth;
@@ -208,10 +211,12 @@ for (let i = 0; i < checkboxArr.length; ++i) {
 const filterBtn = document.querySelector(".search__list-btn");
 filterBtn.addEventListener("click", () => {
 
-	const filterBtn = document.querySelector(".search__btn-icon-img");
+	const filterBtn = document.querySelector(".search__btn-icon");
 	let coordBtn = filterBtn.getBoundingClientRect();
 	let filterModal = document.querySelector(".filter-modal");
 	const clientWidth = document.documentElement.clientWidth;
+
+	filterBtn.classList.toggle("search__btn-icon_active");
 
 	if (filterModal.classList.length == 2) {
 

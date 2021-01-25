@@ -12,6 +12,7 @@
 	</title>
 
 	<link rel="stylesheet" href="/public/css/normalize.css">
+	<link rel="stylesheet" href="/public/css/all.min.css">
 	<link rel="stylesheet" href="/public/css/main.css">
 
 
@@ -43,18 +44,14 @@
 					</span>
 				</div>
 				<form class="search__form">
-					<div class="search__form-icon">
-						<img src="/public/img/search-icon.svg" alt="icon" class="search__form-icon-img">
-					</div>
+					<div class="search__form-icon fas fa-search"></div>
 					<input type="text" placeholder="Название рецепта" class="search__input">
 				</form>
 				<div class="search__filter">
 					<span>Сортировать по: </span>
 					<div class="search__list-btn">
 						<span class="search__btn-text">Новые</span>
-						<div class="search__btn-icon">
-							<img src="/public/img/arrow-down-icon.svg" alt="arrow" class="search__btn-icon-img">
-						</div>
+						<div class="search__btn-icon fas fa-angle-down"></div>
 					</div>
 				</div>
 			</div>
@@ -66,9 +63,7 @@
 				<div class="filters__item">
 					<button class="filters__accordion">
 						<span>По категории блюд</span>
-						<div class="filters__accordion-icon">
-							<img src="/public/img/arrow-down-icon.svg" alt="icon" class="filters__accordion-icon-img">
-						</div>
+						<div class="filters__accordion-icon fas fa-angle-down"></div>
 					</button>
 					<div class="filters__panel">
 						<div class="filters__panel-item">
@@ -132,9 +127,7 @@
 				<div class="filters__item">
 					<button class="filters__accordion">
 						<span>Быстрые рецепты</span>
-						<div class="filters__accordion-icon">
-							<img src="/public/img/arrow-down-icon.svg" alt="icon" class="filters__accordion-icon-img">
-						</div>
+						<div class="filters__accordion-icon fas fa-angle-down"></div>
 					</button>
 					<div class="filters__panel">
 						<div class="filters__panel-item">
@@ -158,9 +151,7 @@
 				<div class="filters__item">
 					<button class="filters__accordion">
 						<span>Время приема пищи</span>
-						<div class="filters__accordion-icon">
-							<img src="/public/img/arrow-down-icon.svg" alt="icon" class="filters__accordion-icon-img">
-						</div>
+						<div class="filters__accordion-icon fas fa-angle-down"></div>
 					</button>
 					<div class="filters__panel">
 						<div class="filters__panel-item">
@@ -184,9 +175,7 @@
 				<div class="filters__item">
 					<button class="filters__accordion">
 						<span>По праздникам</span>
-						<div class="filters__accordion-icon">
-							<img src="/public/img/arrow-down-icon.svg" alt="icon" class="filters__accordion-icon-img">
-						</div>
+						<div class="filters__accordion-icon fas fa-angle-down"></div>
 					</button>
 					<div class="filters__panel">
 						<div class="filters__panel-item">

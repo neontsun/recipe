@@ -10,7 +10,7 @@ try {
 		$classPath = str_replace('\\', '/', $class . '.php');
 
 		if (file_exists($classPath)) {
-			require $classPath;
+			require __DIR__ . "\\" . $classPath;
 		}
 		else throw new Exception("Класс не найден");
 

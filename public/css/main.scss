@@ -139,16 +139,15 @@ body {
     &-icon {
       width: 30px;
       height: 30px;
-      object-position: center;
+      font-size: 25px;
+      color: $link-color;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       margin-right: 5px;
 
       &:hover {
         cursor: pointer;
-      }
-
-      &-img {
-        width: 100%;
-        height: 100%;
       }
     }
   }
@@ -175,17 +174,21 @@ body {
   }
 
   &__btn-icon {
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    color: $link-color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     object-position: center;
+
+    &_active {
+      transform: rotate(180deg);
+    }
 
     &:hover {
       cursor: pointer;
-    }
-
-    &-img {
-      width: 100%;
-      height: 100%;
     }
   }
 
@@ -212,11 +215,15 @@ body {
     &-icon {
       width: 30px;
       height: 30px;
+      font-size: 20px;
+      color: $link-color;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       object-position: center;
 
-      &-img {
-        width: 100%;
-        height: 100%;
+      &_active {
+        transform: rotate(180deg);
       }
     }
   }
@@ -354,11 +361,8 @@ body {
   &__social-icon {
     width: 30px;
     height: 30px;
-  }
-
-  &__social-img {
-    width: 100%;
-    height: 100%;
+    font-size: 30px;
+    color: $link-color;
   }
 
   &__social-count {
@@ -487,17 +491,24 @@ body {
       display: flex;
       align-items: center;
       margin-left: 10px;
+      color: $link-color;
+      cursor: pointer;
+
+      &_active {
+        background-color: $link-color;
+        color: $text-color-light;
+      }
     }
 
     &-icon {
       width: 20px;
       height: 20px;
+      font-size: 20px;
       object-position: center;
     }
 
     &-count {
       margin-left: 5px;
-      color: $link-color;
       font-size: 14px;
     }
   }
@@ -518,6 +529,8 @@ body {
   &__time-icon {
     width: 40px;
     height: 40px;
+    font-size: 40px;
+    color: $link-color;
   }
 
   &__time-desc {
@@ -554,7 +567,7 @@ body {
   }
 
   &__ingridient {
-    background: $bgc-gray;
+    background: $text-color-light;
     display: flex;
     flex-direction: column;
 
@@ -653,6 +666,12 @@ body {
       flex-direction: column;
     }
 
+    &-fields {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
     &-write {
       flex-grow: 1;
       background: $bgc-gray;
@@ -664,16 +683,22 @@ body {
       }
 
       &-icon {
-        width: 50px;
-        height: 50px;
-        border: 1px solid $text-color-gray;
-        border-radius: 50px;
+        width: 40px;
+        height: 40px;
+        font-size: 40px;
         margin-right: 15px;
+        color: $link-color;
       }
 
-      &-input {
+      &-message {
         flex-grow: 1;
         height: 200px;
+        padding: 15px;
+        border: none;
+      }
+
+      &-login {
+        margin-bottom: 15px;
         padding: 15px;
         border: none;
       }
@@ -685,13 +710,20 @@ body {
         padding: 10px 20px;
         border-radius: 50px;
         font-size: 16px;
+        cursor: pointer;
+        margin-left: 50px;
 
         &-block {
           width: 100%;
           display: flex;
           justify-content: flex-end;
+          align-items: center;
         }
       }
+    }
+
+    &-error {
+      color: $link-color;
     }
 
     &-list {
@@ -711,18 +743,18 @@ body {
   width: 100%;
   display: flex;
   font-family: $os-regular;
+  margin: 10px;
 
   &__img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50px;
-    border: 1px solid #000;
+    width: 40px;
+    height: 40px;
+    font-size: 40px;
     margin-right: 15px;
+    color: $link-color;
   }
 
   &__data {
     flex-grow: 1;
-    // border: 1px solid #000;
   }
 
   &__username-date {
@@ -744,7 +776,7 @@ body {
   &__text {
     display: flex;
     flex-wrap: wrap;
-    margin-top: 20px;
+    margin-top: 10px;
     line-height: 25px;
   }
 }

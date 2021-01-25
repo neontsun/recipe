@@ -6,6 +6,7 @@ use application\core\Controller;
 use application\models\RecipeModel;
 use application\models\CommentModel;
 use application\models\CategoryModel;
+use application\models\ImageModel;
 
 class MainController extends Controller {
 	
@@ -17,14 +18,14 @@ class MainController extends Controller {
 
 			if (isset($queryParams["sorting"])) {
 				$sortingValue = $this->parseSortingParams($queryParams["sorting"]);
-				$recipesArray = $this->getRecipesByFilter($queryParams, $sortingValue);
+				$recipesArray = $this->getDataRecipesByFilter($queryParams, $sortingValue);
 			}
 			else
-				$recipesArray = $this->getRecipesByFilter($queryParams);
+				$recipesArray = $this->getDataRecipesByFilter($queryParams);
 
 		}
 		else
-			$recipesArray = $this->getAllDataForAllRecipes();
+			$recipesArray = $this->getDataForAllRecipes();
 		
 		$allDataForRecipes = [
 			$recipesArray,
@@ -36,11 +37,12 @@ class MainController extends Controller {
 
 	}
 
-	private function getAllDataForAllRecipes() {
+	private function getDataForAllRecipes() {
 
 		$recipeModel = new RecipeModel;
 		$commentModel = new CommentModel;
 		$categoryModel = new CategoryModel;
+		$imageModel = new ImageModel;
 
 		$allRecipes = $recipeModel->getAllRecipes();
 
@@ -51,7 +53,7 @@ class MainController extends Controller {
 				$recipeId = $recipe["row_id"];
 				$recipe["comment_count"] = $commentModel->getCommentCountByRecipeId($recipeId);
 				$recipe["category"] = $categoryModel->getCategorysByRecipeId($recipeId);
-				$recipe["image"] = $recipeModel->getImageById($recipeId);
+				$recipe["image"] = $imageModel->getMainImageByRecipeId($recipeId);
 
 			}
 			unset($recipe);
@@ -63,11 +65,12 @@ class MainController extends Controller {
 
 	}
 
-	private function getRecipesByFilter($params, $sortingArray = []) {
+	private function getDataRecipesByFilter($params, $sortingArray = []) {
 
 		$recipeModel = new RecipeModel;
 		$commentModel = new CommentModel;
 		$categoryModel = new CategoryModel;
+		$imageModel = new ImageModel;
 		
 		if ($sortingArray) {
 			$sortingField = $sortingArray["field"];
@@ -84,7 +87,7 @@ class MainController extends Controller {
 				$recipeId = $recipe["row_id"];
 				$recipe["comment_count"] = $commentModel->getCommentCountByRecipeId($recipeId);
 				$recipe["category"] = $categoryModel->getCategorysByRecipeId($recipeId);
-				$recipe["image"] = $recipeModel->getImageById($recipeId);
+				$recipe["image"] = $imageModel->getMainImageByRecipeId($recipeId);
 
 			}
 			unset($recipe);
@@ -95,7 +98,7 @@ class MainController extends Controller {
 		else return [];
 	
 	}
-
+	
 	private function parseSortingParams($querySorting) {
 
 		$sortingValue = [];

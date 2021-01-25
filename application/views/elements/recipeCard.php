@@ -6,7 +6,7 @@ require 'application/functions/parseDate.php';
 function getRecipeCard($data) {
 
 	echo '<div class="card grid-item">';
-		echo '<img src="/public/img/recipes-img/' . $data["image"][0]["link"] . '" alt="recipe image" class="card__img">';
+		echo '<img src="/public/img/recipes-img/' . $data["image"]["link"] . '" alt="recipe image" class="card__img">';
 			echo '<div class="card__data">';
 				echo '<div class="card__category">';
 					
@@ -34,21 +34,17 @@ function getRecipeCard($data) {
 
 				echo '</div>';
 				echo '<div class="card__title">' . $data["title"] . '</div>';
-				echo '<div class="card__desc">' . $data["text"] . '</div>';
+				echo '<div class="card__desc">' . $data["description"] . '</div>';
 				echo '<div class="card__date">' . parseDate($data["date"]) . '</div>';
 				echo '<div class="separator card__separator"></div>';
 				echo '<div class="card__feedback">';
 					echo '<div class="card__feedback-content">';
 						echo '<div class="card__social-item">';
-							echo '<div class="card__social-icon">';
-								echo '<img src="/public/img/like-icon.svg" alt="icon" class="card__social-img">';
-							echo '</div>';
+							echo '<div class="card__social-icon far fa-heart"></div>';
 							echo '<div class="card__social-count">' . $data["like_count"] . '</div>';
 						echo '</div>';
 						echo '<div class="card__social-item">';
-							echo '<div class="card__social-icon">';
-								echo '<img src="/public/img/comment-icon.svg" alt="icon" class="card__social-img">';
-							echo '</div>';
+							echo '<div class="card__social-icon far fa-comment"></div>';
 							echo '<div class="card__social-count">' . $data["comment_count"] . '</div>';
 						echo '</div>';
 					echo '</div>';

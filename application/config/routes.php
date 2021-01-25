@@ -14,10 +14,9 @@ $routes = [
 $recipeModel = new RecipeModel;
 $recipesLink = $recipeModel->getRecipesLinks();
 
-foreach ($recipesLink as $value) {
+foreach ($recipesLink as $link) {
 
-	$link = $value["link"];
-	$routes["recipe/$link"] = [
+	$routes['recipe/'.$link["link"].''] = [
 		'controller' => 'recipe',
 		'action' => 'index'
 	];

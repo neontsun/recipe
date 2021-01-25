@@ -34,4 +34,11 @@ class CommentModel extends Model {
 
 	}
 
+	public function addComment() {
+
+		pretty(123);
+
+	}
+
 }
+

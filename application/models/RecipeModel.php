@@ -1,9 +1,8 @@
 <?php 
 
 namespace application\models;
+
 use application\core\Model;
-use application\models\CommentModel;
-use application\models\CategoryModel;
 
 class RecipeModel extends Model {
 
@@ -13,14 +12,14 @@ class RecipeModel extends Model {
 		$returnedRequestFields = [
 			'row_id',
 			'title',
-			'text',
+			'description',
 			'like_count',
 			'link',
 			'date'
 		];
 
-		$sqlQuery = "SELECT * 
-							   FROM `recipe` 
+		$sqlQuery = "SELECT r.`row_id`, r.`title`, r.`description`, r.`like_count`, r.`link`, r.`date`
+							   FROM `recipe` r
 								 ORDER BY `$orderField` $orderMethod";
 
 		return $this->db->getQuery($sqlQuery, $returnedRequestFields, []);
@@ -28,15 +27,18 @@ class RecipeModel extends Model {
 	}
 
 	/* Получение рецепта по id */
-	public function getRecipeById($recipeId) {
+	public function getFullRecipeDataById($recipeId) {
 
 		$returnedRequestFields = [
 			'row_id',
 			'title',
+			'time_cooking',
+			'description',
+			'ingredients',
 			'text',
 			'like_count',
+			'date',
 			'link',
-			'date'
 		];
 
 		$sqlQuery = "SELECT * 
@@ -56,8 +58,8 @@ class RecipeModel extends Model {
 			"count"
 		];
 
-		$sqlQuery = "SELECT COUNT(`row_id`) 
-								 FROM `recipe`";
+		$sqlQuery = "SELECT COUNT(r.`row_id`) 
+								 FROM `recipe` r";
 
 		$recipeCount = $this->db->getQuery($sqlQuery, $returnedRequestFields, [])[0];
 
@@ -72,8 +74,8 @@ class RecipeModel extends Model {
 			"link"
 		];
 
-		$sqlQuery = "SELECT `link` 
-								 FROM `recipe`";
+		$sqlQuery = "SELECT r.`link` 
+								 FROM `recipe` r";
 		
 		return $this->db->getQuery($sqlQuery, $returnedRequestFields, []);
 
@@ -85,15 +87,15 @@ class RecipeModel extends Model {
 		$returnedRequestFields = [
 			'row_id',
 			'title',
-			'text',
+			'description',
 			'like_count',
 			'link',
 			'date'
 		];
 		$bindParams = [];
 
-		$sqlQuery = "SELECT r.`row_id`, r.`title`, r.`text`, r.`like_count`, r.`link`, r.`date`
-								 FROM `recipe` r 
+		$sqlQuery = "SELECT r.`row_id`, r.`title`, r.`description`, r.`like_count`, r.`link`, r.`date`
+								 FROM `recipe` r
 								 JOIN `recipe-category` rc ON r.`row_id` = rc.`recipe_id`
 								 JOIN `category` c ON c.`row_id` = rc.`category_id` ";
 
@@ -133,24 +135,6 @@ class RecipeModel extends Model {
 		$bindParams[count($bindParams)] = "i";
 		
 		$sqlQuery .= "ORDER BY r.`$orderField` $orderMethod";
-
-		return $this->db->getQuery($sqlQuery, $returnedRequestFields, $bindParams);
-
-	}
-
-	/* Получение изображений рецепта */
-	public function getImageById($recipeId) {
-
-		$returnedRequestFields = [
-			"link"
-		];
-
-		$sqlQuery = "SELECT i.`link`
-								 FROM `image` i
-								 WHERE i.`recipe_id` = ? 
-								 ORDER BY `order_index` ASC";
-
-		$bindParams[$recipeId] = "i";
 
 		return $this->db->getQuery($sqlQuery, $returnedRequestFields, $bindParams);
 
